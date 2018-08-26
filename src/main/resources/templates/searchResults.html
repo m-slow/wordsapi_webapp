@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Results</title>
+</head>
+<style>
+body {
+	font-family: sans-serif;
+	font-size: 10px;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	vertical-align: top;
+	white-space: nowrap;
+	margin: 10px;
+	padding: 10px;
+}
+
+th {
+	text-align: center;
+}
+
+ol {
+	float: left;
+	list-style-position: inside;
+	margin: 0;
+	padding: 0;
+}
+</style>
+<body>
+<h1>WordsApi webapp 0.2</h1>
+<br>
+<h1>Results from the WordsAPI results saved into the database:</h1>
+<br>
+<table align="left">
+    <tr>
+        <th><b>Word</b></th>
+        <th><b>Definition</b></th>
+        <th><b>Part of speech</b></th>
+        <th><b>Syllables</b></th>
+        <th><b>Syllable count</b></th>
+        <th><b>Pronunciation</b></th>
+        <th><b>Frequency</b></th>
+        <th><b>Synonyms</b></th>
+        <th><b>Type of</b></th>
+        <th><b>Has types</b></th>
+        <th><b>Word group</b></th>
+        <th><b>Derivation</b></th>
+        <th><b>Example</b></th>
+        <th><b>Entails</b></th>
+        <th><b>Also</b></th>
+        <th><b>Antonyms</b></th>
+        <th><b>Instance of</b></th>
+        <th><b>Part of</b></th>
+        <th><b>Has parts</b></th>
+        <th><b>Has instances</b></th>
+        <th><b>Substance of</b></th>
+        <th><b>Has substances</b></th>
+        <th><b>Similar to</b></th>
+        <th><b>Member of</b></th>
+        <th><b>Has members</b></th>
+        <th><b>Has categories</b></th>
+        <th><b>Usage of</b></th>
+        <th><b>Has usages</b></th>
+        <th><b>In region</b></th>
+        <th><b>Region of</b></th>
+        <th><b>Pertains to</b></th>
+    </tr>
+    <tr th:each="individualResult : ${results}">
+        <td><b th:text="${individualResult.getWord()}"></b></td>
+        <td th:text="${individualResult.getDefinition()}"></td>
+        <td th:text="${individualResult.getPartOfSpeech()}"></td>
+        <td><ol>
+            <li th:each="syllable: ${individualResult.getSyllables()}"
+                th:text="${syllable}"></li>
+        </ol></td>
+        <td th:text="${individualResult.getSyllableCount()}"></td>
+        <td th:text="${individualResult.getPronunciation()}"></td>
+        <td th:text="${individualResult.getFrequency()}"></td>
+        <td><ol>
+            <li th:each="synonym: ${individualResult.getSynonyms()}"
+                th:text="${synonym}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="typeOf: ${individualResult.getTypeOf()}"
+                th:text="${typeOf}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="hasType: ${individualResult.getHasTypes()}"
+                th:text="${hasType}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="verbGroup: ${individualResult.getVerbGroup()}"
+                th:text="${verbGroup}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="derivation: ${individualResult.getDerivation()}"
+                th:text="${derivation}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="example: ${individualResult.getExamples()}"
+                th:text="${example}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="entails: ${individualResult.getEntails()}"
+                th:text="${entails}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="also: ${individualResult.getAlso()}" th:text="${also}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="antonym: ${individualResult.getAntonyms()}"
+                th:text="${antonym}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="instanceOf: ${individualResult.getInstanceOf()}"
+                th:text="${instanceOf}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="partOf: ${individualResult.getPartOf()}"
+                th:text="${partOf}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="hasPart: ${individualResult.getHasParts()}"
+                th:text="${hasPart}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="hasInstance: ${individualResult.getHasInstances()}"
+                th:text="${hasInstance}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="substanceOf: ${individualResult.getSubstanceOf()}"
+                th:text="${substanceOf}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="hasSubstance: ${individualResult.getHasSubstances()}"
+                th:text="${hasSubstance}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="similarTo: ${individualResult.getSimilarTo()}"
+                th:text="${similarTo}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="memberOf: ${individualResult.getMemberOf()}"
+                th:text="${memberOf}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="hasMember: ${individualResult.getHasMembers()}"
+                th:text="${hasMember}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="hasCategory: ${individualResult.getHasCategories()}"
+                th:text="${hasCategory}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="usageOf: ${individualResult.getUsageOf()}"
+                th:text="${usageOf}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="hasUsage: ${individualResult.getHasUsages()}"
+                th:text="${hasUsage}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="inRegion: ${individualResult.getInRegion()}"
+                th:text="${inRegion}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="regionOf: ${individualResult.getRegionOf()}"
+                th:text="${regionOf}"></li>
+        </ol></td>
+        <td><ol>
+            <li th:each="pertainsTo: ${individualResult.getPertainsTo()}"
+                th:text="${pertainsTo}"></li>
+        </ol></td>
+        </td>
+    </tr>
+</table>
+<a href="/">New search</a>
+</body>
+</html>

@@ -9,7 +9,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Syllables {
     @JsonProperty("count")
-    public Integer count;
+    private Integer count;
     @JsonProperty("list")
-    public String[] list = null;
+    private String[] list = null;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String[] getList() {
+        return list;
+    }
+
+    public void setList(String[] list) {
+        this.list = list;
+    }
 }

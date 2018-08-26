@@ -8,6 +8,9 @@ import org.hibernate.annotations.TypeDefs;
 
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name = "WordsApiResults")
 @TypeDefs({ @TypeDef(name = "string-array", typeClass = StringArrayType.class) })
@@ -15,6 +18,17 @@ public class IndividualResult {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long individualResultId;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date timestamp;
+
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+
 	private String word;
 	@Column(columnDefinition = "text[]")
 	@Type(type = "string-array")

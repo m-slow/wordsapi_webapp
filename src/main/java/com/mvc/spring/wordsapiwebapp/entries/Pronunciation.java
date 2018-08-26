@@ -8,5 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Pronunciation {
     @JsonProperty("all")
-    public String all;
+    private String all;
+
+    public String getAll() {
+        return all;
+    }
+
+    public void setAll(String all) {
+        this.all = all;
+    }
 }

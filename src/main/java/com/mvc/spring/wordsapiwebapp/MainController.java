@@ -1,7 +1,6 @@
 package com.mvc.spring.wordsapiwebapp;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mvc.spring.wordsapiwebapp.connections.MainConnection;
 import com.mvc.spring.wordsapiwebapp.connections.WordsApiConnection;
 import com.mvc.spring.wordsapiwebapp.entries.IndividualResult;
 import com.mvc.spring.wordsapiwebapp.entries.WordsApiEntry;
@@ -21,8 +20,7 @@ public class MainController {
 	@Autowired
 	WordRepository wordRepository;
 
-	List<IndividualResult> results = null;
-	MainConnection mainConnection = MainConnection.getInstance();
+	List<IndividualResult> results;
 
 	@GetMapping(value = "/")
 	public String main() {
@@ -30,14 +28,30 @@ public class MainController {
 	}
 
 	@GetMapping(value = "/lookup")
-	public String lookUpWord(@RequestParam(value = "word", required = false) String word, Model model)
+	public String lookUpWord(@RequestParam(value = "word", required = true) String word, Model model)
 			throws IOException, UnirestException {
-		mainConnection.setApiConnectionParameter(WordsApiConnection.getInstance());
-		String response = mainConnection.getApiConnectionParameter().lookUpWord(word);
-		WordsApiEntry wordsApiEntry = WordsApiConnection.createJavaObject(response);
-		results = wordsApiEntry.getAllIndividualResults();
+		WordsApiConnection connection = WordsApiConnection.getInstance();
+		connection.receiveResponseFromServer(word);
+		connection.turnHttpResponseIntoString();
+		connection.createJavaObjectFromStringResponse();
+		WordsApiEntry current = connection.getCurrentJavaObject();
+		try {
+			results = current.getAllIndividualResults();
+		} catch (NullPointerException npe) {
+			return "noResults";
+		}
 		model.addAttribute("results", results);
 		return "lookup";
+	}
+
+	@GetMapping(value = "/searchdb")
+	public String findInDb(@RequestParam(value = "word", required = true) String word, Model model) {
+		results = wordRepository.findByWord(word);
+		if (results.isEmpty()) {
+			return "noresults";
+		}
+		model.addAttribute("results", results);
+		return "searchResults";
 	}
 
 	@GetMapping(value = "/save")

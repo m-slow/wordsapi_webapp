@@ -68,10 +68,10 @@ public class WordsApiEntry {
             IndividualResult individualResult = new IndividualResult();
             individualResult.setWord(word);
             individualResult.setDefinition(result.getDefinition());
-            individualResult.setPronunciation(pronunciation.all);
+            individualResult.setPronunciation(pronunciation.getAll());
             individualResult.setFrequency(frequency);
-            individualResult.setSyllableCount(syllables.count);
-            individualResult.setSyllables(syllables.list);
+            individualResult.setSyllableCount(syllables.getCount());
+            individualResult.setSyllables(syllables.getList());
             individualResult.setAlso(result.getAlso());
             individualResult.setAntonyms(result.getAntonyms());
             individualResult.setDerivation(result.getDerivation());
